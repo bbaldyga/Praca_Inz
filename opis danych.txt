@@ -1,0 +1,45 @@
+Series 1 i series 3
+Zbiór danych został zebrany z pomocą studentów. Dwunastu studentów zostało podzielonych na trzy grupy i każdy z nich posiadał urządzenie iTAG. Każdy z nich chodził po swoim ograniczonym obszarze z aktywnym iTAGiem. W długim korytarzu o wymiarach 18,35m x 3m wyznaczyliśmy 3 obszary ilustrujące wejście do budynku: wewnątrz, w przedsionku oraz na zewnątrz. Sygnały odebrały dwa smartfony Sony Xperia XA1. Znajdowały się one na początku i na końcu obszaru "w przedsionku", który ma długość 2,35m. Zbieranie RSSIs trwało 20 minut.
+Powstały dwa zbiory danych: filtered_rssi oraz raw_rssi. Do naszego zadania wykorzystaliśmy raw_rssi, series1 ma pierwszego smartfona a series3 driugiego
+Klasą naszych zbiorów jest jeden z trzech obszarów iTAG
+
+Napisz pętle obliczającą pomiędzy odległościami 
+Podziel sobie na szeegegi w zaleności od name 
+
+Series 2
+
+Dane pochodzą od 13 użytkowników
+
+Dane TAC zbierano za pomocą bransoletek na kostkę SCRAM [2] i gromadzono je w odstępach 30-minutowych. Surowe odczyty TAC znajdują się w katalogu raw_tac. Odczyty TAC, które są bardziej przydatne do przetwarzania, znajdują się w katalogu clean_tac i mają dwie kolumny: znacznik czasu i odczyt TAC. Oczyszczone odczyty TAC: (1) zostały przetworzone za pomocą filtru dolnoprzepustowego o zerowej fazie w celu wygładzenia szumów bez przesunięcia fazy; (2) zostały przesunięte wstecz o 45 minut, aby etykiety bardziej odpowiadały prawdziwemu upojeniu uczestnika (ponieważ alkohol potrzebuje około 45 minut, aby wydostać się przez skórę).
+
+argumentami zbioru będą 
+timestamp: integer, unix timestamp, seconds
+TAC_Reading: continuous, time-series
+
+klasą będzie obliczony z TAC_Reading stan alkoholu we krwi osoby badanej, w przypadku 1 będzie to osoba której ilość alkoholi wynosiła mniej ni 0.08 a dla 0 wszystkie pozostałe.
+
+Series 4
+Daphnet Freezing of Gait Dataset jest zbiorem danych stworzonym w celu przetestowania automatycznych metod rozpoznawania zamrożenia chodu z czujników przyspieszenia umieszczonych na nogach i biodrach.
+
+Zbiór danych został nagrany w laboratorium z naciskiem na generowanie wielu zdarzeń zamrożenia. Użytkownicy wykonywali różne rodzaje zadań: chód w linii prostej, chód z licznymi skrętami, a także bardziej realistyczne zadanie ADL (Activity of Daily Living), w którym użytkownicy wchodzili do różnych pomieszczeń po kawę, otwierali drzwi, itp.
+
+Ten zbiór danych jest wynikiem współpracy pomiędzy Laboratory for Gait and Neurodynamics, Tel Aviv Sourasky Medical Center, Izrael i Wearable Computing Laboratory, ETH Zurich, Szwajcaria. Nagrania zostały przeprowadzone w Centrum Medycznym Tel Aviv Sourasky w 2008 roku. Badanie zostało zatwierdzone przez lokalny Human Subjects Review Committee i zostało przeprowadzone zgodnie z normami etycznymi Deklaracji Helsińskiej.
+
+Zbiór posiada 10 atrybutów
+
+Time of sample in millisecond
+Ankle (shank) acceleration - horizontal forward acceleration [mg]
+Ankle (shank) acceleration - vertical [mg]
+Ankle (shank) acceleration - horizontal lateral [mg]
+Upper leg (thigh) acceleration - horizontal forward acceleration [mg]
+Upper leg (thigh) acceleration - vertical [mg]
+Upper leg (thigh) acceleration - horizontal lateral [mg]
+Trunk acceleration - horizontal forward acceleration [mg]
+Trunk acceleration - vertical [mg]
+Trunk acceleration - horizontal lateral [mg]
+
+
+Klasą jest atrybut Annotation który ma 3 stany:
+0: nie jest częścią eksperymentu. Na przykład czujniki są zainstalowane na użytkowniku lub użytkownik wykonuje czynności niezwiązane z protokołem eksperymentalnym, takie jak odprawa.
+1: eksperyment, bez zamrożenia (może być dowolna z następujących czynności: stanie, chodzenie, obracanie się)
+2: zamrożenie
