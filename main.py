@@ -6,6 +6,7 @@ import numpy as np
 import scipy as sp
 import os
 
+
 def isGoodForDriving(x):
     if(x<0.08):
         return 1
@@ -81,25 +82,7 @@ print(numbers_of_rows4)
 
 
 
-#x = series['timestamp'].tolist()
-#save numeric columns value in list variable to check whether we have any nullable values in it
-y = series['rssiOne'].tolist()
-x = series2['TAC_Reading'].tolist()
-z = series3['rssiTwo'].tolist()
-a = series4['ankleHFA'].tolist()
 
-
-print(np.sum(np.isnan(y)))
-#first series print 0 it means that i dont have any missing values in this series
-
-print(np.sum(np.isnan(x)))
-#second series print 0 it means that i dont have any missing values in this series
-
-print(np.sum(np.isnan(z)))
-#third series print 0 it means that i dont have any missing values in this series
-
-print(np.sum(np.isnan(a)))
-#fourth series print 0 it means that i dont have any missing valyes in this series
 
 NameVector = series['name']
 ListOfNames = []
@@ -220,103 +203,256 @@ for dt in newDataFrames2:
     
 #I dont get any true .isnull().values.any() returns true if i have any missing values in data Frame
 
-Test = newDataFrames[0]
-Test['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
-Test1 = Test[['timestamp', 'rssiOne']]
-Test2 = Test[['locationStatus']]
+# Test = newDataFrames[0]
+# Test['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+# Test1 = Test[['timestamp', 'rssiOne']]
+# Test2 = Test[['locationStatus']]
 # TestA = newDataFrames2[3]
 # TestA['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
 # TestA1 = TestA[['timestamp', 'rssiTwo']]
 # TestA2 = TestA[['locationStatus']]
 
-TestA = newDataFrames2[0]
-TestA['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
-TestA1 = TestA[['timestamp', 'rssiTwo']]
-TestA2 = TestA[['locationStatus']]
+# TestA = newDataFrames2[0]
+# TestA['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+# TestA1 = TestA[['timestamp', 'rssiTwo']]
+# TestA2 = TestA[['locationStatus']]
 
 
 # Test = series4.drop('Annotation',axis=1)
 # TestA = series4[['Annotation']]
 from sklearn.model_selection import train_test_split
 
-test1np, testA1np =  train_test_split(Test, test_size=0.2)
-test2np, testA2np =  train_test_split(TestA, test_size=0.2)
-#Testnp = Test2.to_numpy()
-#labels, count = np.unique(Testnp, return_counts = True)
-#print(labels, count)
+# test1np, test2np =  train_test_split(Test, test_size=0.2)
+# testA1np, testA2np =  train_test_split(TestA, test_size=0.2)
+
+# labels, count = np.unique(Testnp, return_counts = True)
+# # print(labels, count)
 # test1np = Test1.to_numpy()
 # test2np = Test2.to_numpy()
 # testA1np = TestA1.to_numpy()
 # testA2np = TestA2.to_numpy()
 
-#from sklearn.dummy import DummyClassifier
+from sklearn.dummy import DummyClassifier
+from sklearn.metrics import accuracy_score
 
-#classifier = DummyClassifier(strategy='prior')
-#classifier.fit(test1np, test2np)
-#score = classifier.score(testA1np, testA2np)
-#print(score)
-
-#test jezeli nauczam calym framem
-series['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
-series3['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
-series['timestamp'] = series['timestamp'].astype(np.double)
-series['rssiOne'] = series['rssiOne'].astype(np.double)
-test1np = series[['timestamp', 'rssiOne']]
-test2np = series[['locationStatus']].to_numpy()
-series3['timestamp'] = series3['timestamp'].astype(np.double)
-series3['rssiTwo'] = series3['rssiTwo'].astype(np.double)
-testA1np = series3[['timestamp', 'rssiTwo']]
-testA2np = series3[['locationStatus']].to_numpy()
-
-
-# from sklearn.ensemble import RandomForestClassifier
-# from sklearn.metrics import accuracy_score
-# classifier = RandomForestClassifier(n_estimators=100)
-# classifier.fit(test1np.to_numpy(), test2np.to_numpy().ravel())
-# y_pred = classifier.predict(testA1np.to_numpy())
-# score = accuracy_score(testA2np.to_numpy(), y_pred)
+# series['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+# series3['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+# classifier = DummyClassifier(strategy='prior')
+# # for df in newDataFrames:
+# #     df['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+# #     classifier.fit(df[['timestamp', 'rssiOne']].to_numpy(), df[['locationStatus']].to_numpy().ravel())
+# # classifier.fit(test1np, test2np)
+# ts = series3[['timestamp', 'rssiTwo']]
+# classifier.fit(series[['timestamp', 'rssiOne']].to_numpy(), series[['locationStatus']].to_numpy())
+# val = classifier.predict(ts)
+# numofPred = accuracy_score(series3[['locationStatus']].to_numpy(), val, normalize=False)
+# score = accuracy_score(series3[['locationStatus']].to_numpy(), val)
+# #score = classifier.score(series3[['timestamp', 'rssiOne']].to_numpy(), series[["locationStatus"]].to_numpy())
 # print(score)
 
+# print(val)
+# print(numofPred)
+
+# #test jezeli nauczam calym framem
+# series['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+# series3['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+# series['timestamp'] = series['timestamp'].astype(np.double)
+# series['rssiOne'] = series['rssiOne'].astype(np.double)
+# test1np = series[['timestamp', 'rssiOne']]
+# test2np = series[['locationStatus']].to_numpy()
+# series3['timestamp'] = series3['timestamp'].astype(np.double)
+# series3['rssiTwo'] = series3['rssiTwo'].astype(np.double)
+# testA1np = series3[['timestamp', 'rssiTwo']]
+# testA2np = series3[['locationStatus']].to_numpy()
+
+
+from sklearn.ensemble import RandomForestClassifier
+
+classifier = RandomForestClassifier(max_depth=2, random_state=0)
+
+# TestA = newDataFrames2[0]
+# TestA['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+# TestA1 = TestA[['timestamp', 'rssiTwo']]
+# TestA2 = TestA[['locationStatus']]
+
+# for df in newDataFrames:
+#     #df['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+#     classifier.fit(df[['timestamp', 'rssiOne']].to_numpy(), df[['locationStatus']].to_numpy().ravel())
+
+
+#print(TestA['locationStatus'].value_counts())
+#series['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+# print(series['locationStatus'].value_counts())
+# y_pred = classifier.predict(series[['timestamp', 'rssiOne']].to_numpy())
+# score = accuracy_score(series[['locationStatus']].to_numpy(), y_pred)
+# scoreAmount = accuracy_score(series[['locationStatus']].to_numpy().ravel(), y_pred,normalize=False)
+# print(y_pred)
+# print(scoreAmount)
+# print(score)
 from sktime.transformations.panel.summarize import RandomIntervalFeatureExtractor
 
 from sklearn.metrics import accuracy_score
 
-# from sklearn.pipeline import Pipeline
+from sklearn.pipeline import Pipeline
 # from sklearn.tree import DecisionTreeClassifier
 # from sklearn import tree
 # from sktime.utils.slope_and_trend import _slope
 
+# print(series4['Annotation'].value_counts())
 # time_series_tree = DecisionTreeClassifier()
-# clf = time_series_tree.fit(test1np.to_numpy(), test2np.to_numpy().ravel())
-# tree.plot_tree(clf)
-# print(time_series_tree.score(testA1np.to_numpy(), testA2np.to_numpy().ravel()))
+# time_series_tree.fit(test1np.to_numpy(), testA1np.to_numpy().ravel())
 
+# y_pred = time_series_tree.predict(test2np.to_numpy())
+# score = accuracy_score(testA2np.to_numpy().ravel(), y_pred)
+# scoreAmount = accuracy_score(testA2np.to_numpy().ravel(), y_pred,normalize=False)
+# print(y_pred)
+# print(scoreAmount)
+# print(score)
+
+
+#time_series_tree.score(test2np.to_numpy(), testA2np.to_numpy().ravel())
+# for df in newDataFrames:
+#     df['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+#     time_series_tree.fit(df[['timestamp', 'rssiOne']].to_numpy(), df[['locationStatus']].to_numpy().ravel())
+#     y_pred = time_series_tree.predict(TestA1.to_numpy())
+#     score = accuracy_score(TestA2.to_numpy().ravel(), y_pred)
+#     scoreAmount = accuracy_score(TestA2.to_numpy().ravel(), y_pred,normalize=False)
+#     print(y_pred)
+#     print(scoreAmount)
+#     print(score)
+
+
+#clf = time_series_tree.fit(test1np.to_numpy(), test2np.to_numpy().ravel())
+#tree.plot_tree(clf)
+#print(time_series_tree.score(testA1np.to_numpy(), testA2np.to_numpy().ravel()))
+#print(time_series_tree.score(series3[['timestamp', 'rssiTwo']].to_numpy(), series3[['locationStatus']].to_numpy().ravel()))
 from sktime.datatypes._panel._convert import from_2d_array_to_nested
 
-test1np = from_2d_array_to_nested(test1np)
-testA1np = from_2d_array_to_nested(testA1np)
+# test1np = from_2d_array_to_nested(test1np)
+# testA1np = from_2d_array_to_nested(testA1np)
+
+
+# Test = series4.drop('Annotation',axis=1)
+# TestA = series4[['Annotation']]
 
 
 
+# series['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+# print("debug zamiana DF na nested DF")
+# series = series[['timestamp', 'rssiOne','locationStatus']].astype('double')
+# Test = from_2d_array_to_nested(series)
+
+
+from sklearn.model_selection import train_test_split
+# print("debug podział")
+# test1np, testA1np =  train_test_split(Test, test_size=0.5)
+# test2np, testA2np =  train_test_split(series[['locationStatus']], test_size=0.5)
+
+#Works dont need nested DataFrame
+from sklearn.neighbors import KNeighborsClassifier
+
+
+#Doesnt work stuck on predict
 from sktime.classification.distance_based import KNeighborsTimeSeriesClassifier
 
-knn = KNeighborsTimeSeriesClassifier(n_neighbors=1, distance="dtw")
+from sktime.classification.compose import ComposableTimeSeriesForestClassifier
 
-knn.fit(test1np, test2np.ravel())
-score =knn.score(testA1np, testA2np.ravel())
-print(score)
+
+from sktime.classification.dictionary_based import BOSSEnsemble
+
 from sktime.classification.interval_based import RandomIntervalSpectralForest
+
+from sktime.classification.shapelet_based import ShapeletTransformClassifier
+
+from sklearn.tree import DecisionTreeClassifier
+
+from sklearn.linear_model import Perceptron
+from sklearn.naive_bayes import BernoulliNB
+
+for df in newDataFrames:
+    df['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+
+for df in newDataFrames2:
+    df['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+import time
+clf = ComposableTimeSeriesForestClassifier()
+clf = KNeighborsClassifier()
+clf = Perceptron()
+clf = BernoulliNB()
+#clf = DecisionTreeClassifier()
+series['locationStatus'].replace({"OUTSIDE":3, "IN_VESTIBULE":2, "INSIDE":1}, inplace=True)
+Classes = np.unique(series['locationStatus'].to_numpy())
+iterator = 0
+for df in newDataFrames:
+    
+    df2 = newDataFrames2[iterator]
+    name = df['name'].values[0]
+    df = df[['timestamp', 'rssiOne', 'locationStatus']].astype('double') 
+    df2 = df2[['timestamp', 'rssiTwo', 'locationStatus']].astype('double')
+    dfClass = df[['locationStatus']]
+    df2Class = df2[['locationStatus']]
+    df = df.drop('locationStatus',axis=1)
+    df2 = df2.drop('locationStatus', axis=1)
+    # t = time.process_time()
+    #TrainSet = from_2d_array_to_nested(df)
+    TrainSet = df
+    # print(time.process_time()-t)
+    # t = time.process_time()
+    # TestSet = from_2d_array_to_nested(df2)
+    # TestSet = df2
+    # print(time.process_time()-t)
+    # t = time.process_time()
+    clf.partial_fit(TrainSet, dfClass.to_numpy().ravel(),Classes)
+    # print(time.process_time()-t)
+    # t = time.process_time()
+    # y_pred = clf.predict(TestSet)
+    # print(time.process_time()-t)
+    # score = accuracy_score(df2Class.to_numpy().ravel(), y_pred)
+    # scoreAmount = accuracy_score(df2Class.to_numpy().ravel(), y_pred,normalize=False)
+    # print('wyniki dla ',name,' nr iteratora ', str(iterator))
+    # print(y_pred)
+    # print(scoreAmount)
+    # print(df2Class.value_counts())
+    # print(score)
+    # iterator+=1
+
+for df2 in newDataFrames2:
+    df2 = df2[['timestamp', 'rssiTwo', 'locationStatus']].astype('double')
+    df2Class = df2[['locationStatus']]
+    df2 = df2.drop('locationStatus', axis=1)
+    
+    TestSet = from_2d_array_to_nested(df2)
+    TestSet = df2
+    t = time.process_time()
+    y_pred = clf.predict(TestSet)
+    print(time.process_time()-t)
+    score = accuracy_score(df2Class.to_numpy().ravel(), y_pred)
+    scoreAmount = accuracy_score(df2Class.to_numpy().ravel(), y_pred,normalize=False)
+    print('wyniki dla ',name,' nr iteratora ', str(iterator))
+    print(y_pred)
+    print(scoreAmount)
+    print(df2Class.value_counts())
+    print(score)
+    iterator+=1
+
+
+# knn = KNeighborsTimeSeriesClassifier()  
+# print("debug knn")
+# knn.fit(test1np, test2np.to_numpy().ravel())
+# print("debug knn score")
+# y_predict = knn.predict(testA1np)
+
+# score =knn.score(testA1np, testA2np.to_numpy().ravel())
+# print(y_predict)
+# print(score)
+# from sktime.classification.interval_based import RandomIntervalSpectralForest
 
 # rise = RandomIntervalSpectralForest(n_estimators=10)
 # rise.fit(test1np, test2np.ravel())
 # score =rise.score(testA1np, testA2np.ravel())
 # print(score)
 # plt.show()
-# from sktime.transformations.panel.tsfresh import TSFreshFeatureExtractor
 
-# transformer = TSFreshFeatureExtractor(default_fc_parameters="minimal")
-# extracted_features = transformer.fit_transform(X_train)
-# extracted_features.head()
 # from pyts.classification import LearningShapelets
 
 # clf = LearningShapelets(shapelet_scale=5)

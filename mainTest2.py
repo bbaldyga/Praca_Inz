@@ -1,0 +1,2 @@
+from plot_classification_results import plot_strawberry_results
+plot_strawberry_results()
